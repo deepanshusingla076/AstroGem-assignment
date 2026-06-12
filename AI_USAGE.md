@@ -1,44 +1,58 @@
-# AI Usage Declaration — AstroGem
+# AI Usage Declaration 🤖✍️
 
-This document transparently declares the use of AI tools during the development of the **AstroGem** Gemstone Recommendation App.
-
----
-
-## Tool Used
-
-**Antigravity IDE (Powered by Google DeepMind / Claude Sonnet)**
-- Used as an AI pair-programming assistant throughout the project.
+This document outlines the usage of Artificial Intelligence (AI) assistants in the development, architecture design, coding, styling, and verification of **AstroGem**.
 
 ---
 
-## How AI Was Used
+## 🛠️ AI Tools Utilized
 
-### 1. Project Scaffolding
-The initial Vite + React + TypeScript project was initialized using the standard Vite CLI. The directory structure (separating `backend/` and `frontend/` concerns) was designed and architected by the developer, with AI helping generate boilerplate files.
-
-### 2. CSS Design System
-The full `index.css` design system (CSS custom properties for dark/light themes, glassmorphism utilities, sidebar styles, responsive grid, animation keyframes) was written with AI assistance to ensure consistency and professional polish.
-
-### 3. Vedic Astrology & Numerology Engine
-The core recommendation logic in `backend/src/services/astrologyService.ts` — including the numerology number calculation, zodiac month mapping, planetary compatibility checks, and focus-area filtering — was built using AI's knowledge of Vedic Jyotish astrology principles.
-
-### 4. Gemstone Data
-The detailed JSON data for all 9 Navaratna gemstones (`backend/src/data/gemstones.json`) — including Sanskrit names, planetary rulers, chakras, mantras, wearing rituals, purification steps, and compatibility lists — was synthesized by AI from Vedic astrology reference material.
-
-### 5. UI Component Structure
-The React component architecture (LandingPage, AuthPage, DashboardLayout, GemFinder, GemCatalog, GemCompatibility, AstroChat) was designed collaboratively, with AI generating the complete TypeScript component code.
-
-### 6. AstroChat Knowledge Base
-The 15 keyword-matching patterns in the `AstroChat` component were manually curated to cover the most common gemstone queries, with AI helping phrase the astrological responses accurately.
+- **Primary Assistant**: Antigravity, an advanced agentic coding assistant powered by Gemini.
+- **Contextual Scope**: Project-wide scaffolding, API routing, in-memory data structures, state management logic, UI styling, and astrology-based recommendation algorithms.
 
 ---
 
-## What Was NOT AI-Generated
-- Project requirements interpretation and feature prioritization
-- Overall architecture decisions (backend vs frontend split, JWT auth choice, in-memory storage decision)
-- The product naming decision ("AstroGem")
-- Final code review and quality control
+## 🤝 Human-AI Collaboration Model
+
+The codebase represents a modern collaborative workflow. Tasks were distributed as follows:
+
+### 1. Code Generation & Scaffolding (AI-Driven)
+- Scaffolding of the Node.js / Express backend router mappings.
+- Designing the in-memory data models for User and Gemstone records.
+- Writing the recommendation engine logic (`backend/src/services/astrologyService.ts`) to calculate matches based on numerology, zodiac approximation, and life intentions.
+- Scaffolding React page components (`LandingPage`, `DashboardLayout`, `GemFinder`, etc.).
+
+### 2. UI/UX Design & Styling (AI & Human Directives)
+- Implementation of a premium theme (glassmorphism dashboard cards, clean forms, responsive layout configurations).
+- Creation of a custom CSS design system (`index.css`) with CSS variables for dark and light modes.
+- Styling interactive components (sidebar menus, glowing buttons, step-by-step wizards).
+
+### 3. Review, Debugging, & Quality Verification (Human & AI Collaboration)
+- Testing of authentication states and local storage session tokens.
+- Validation of Axios interceptor request injections (`frontend/src/api/client.ts`).
+- Inspection of Express endpoints for robust error handling and CORS policy adjustments.
 
 ---
 
-*This declaration is provided in compliance with the Hamara Pandit hiring assignment guidelines.*
+## 📈 Codebase Contribution Estimates
+
+Below is a breakdown of the estimated contribution distribution:
+
+| Layer / Component | AI-Generated Code (%) | Human Review & Refinement (%) |
+| :--- | :---: | :---: |
+| **Backend API Routing & Controllers** | 90% | 10% |
+| **Astrology Recommendation Engine** | 95% | 5% |
+| **Data Structures & JSON Seeding** | 95% | 5% |
+| **React Components & UI Layout** | 85% | 15% |
+| **React Context & API Services** | 90% | 10% |
+| **Documentation & Guides** | 100% | 0% |
+
+---
+
+## 🔍 Verification & Integrity Procedures
+
+To ensure that AI-generated code meets strict security, readability, and functional standards, the following guidelines were applied:
+
+1. **Secret Management Verification**: Assured that all credentials (JWT secrets) are handled securely.
+2. **Robust Password Hashing**: Verified that password hashing is handled securely using `bcryptjs` before in-memory storage.
+3. **Cross-Origin Access Control**: Validated that `cors` middleware configurations align with security practices between frontend and backend ports, dynamically allowing localhost origins.
+4. **No Placeholders**: Assured all gemstone data, mantras, and UI components display complete datasets, avoiding dummy texts and incomplete layouts.

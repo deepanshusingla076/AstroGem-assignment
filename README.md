@@ -1,162 +1,141 @@
-# AstroGem — Vedic Gemstone Recommendation App
+# AstroGem 💎
 
-> A full-stack Gemstone Recommendation platform built for the **Hamara Pandit Hiring Assignment**
-
-![AstroGem](https://img.shields.io/badge/AstroGem-v1.0.0-gold) ![TypeScript](https://img.shields.io/badge/TypeScript-5.4-blue) ![React](https://img.shields.io/badge/React-18-61DAFB) ![Express](https://img.shields.io/badge/Express-4.18-green) ![License](https://img.shields.io/badge/License-MIT-lightgrey)
+AstroGem is a premium, full-stack gemstone recommendation application. It matches users with their ideal sacred gemstone based on their birth numerology, zodiac sign, and life intentions using an authentic Vedic astrology recommendation engine. The application features secure user authentication, a searchable gemstone catalog, a compatibility checker, and a responsive, world-class user interface built with React and custom CSS.
 
 ---
 
-## 📋 Project Overview
+## 🌟 Features
 
-AstroGem is a **professionally architected, full-stack web application** that provides personalized Vedic gemstone recommendations based on Numerology, Zodiac signs, and life intentions. It implements the ancient Vedic **Navaratna** (Nine Sacred Gemstones) system via a clean REST API backed by JWT authentication.
-
----
-
-## ✨ Features
-
-| Feature | Description |
-|---|---|
-| 🔐 **Auth (JWT)** | Register/Login with JWT token stored in localStorage. All gemstone APIs are protected. |
-| 💎 **Gem Finder** | 3-step wizard → birth details → Vedic analysis → 3 personalized gemstone recommendations |
-| 📚 **Navaratna Catalog** | Full searchable & filterable directory of all 9 gemstones with detailed profiles, mantras, and rituals |
-| ⚖️ **Compatibility Checker** | Check if 2 gemstones can be worn together using Vedic planetary friendship rules |
-| 💬 **AstroGuide Chat** | Keyword-aware AI chat with suggestions, typing indicators, and rich astrological responses |
-| 🌗 **Dark/Light Mode** | Smooth theme toggle — sidebar always stays dark navy (SaaS-standard two-tone design) |
-| 📱 **Responsive** | Fully responsive across mobile, tablet, and desktop |
+- **Personalized Recommendations**: Evaluates numerological Life Path Numbers, zodiac alignments, and personal goals to find the Lagna Ratna (Life Stone), Bhagya Ratna (Lucky Stone), and Karya Ratna (Remedy Stone).
+- **User Authentication**: Secure register and login functionality using JSON Web Tokens (JWT) and bcrypt password hashing.
+- **Navaratna Catalog**: A comprehensive, filterable directory of the 9 sacred gemstones, including detailed Vedic mantras, wearing rituals, and planetary profiles.
+- **Compatibility Checker**: Verify if two gemstones can be safely worn together based on Vedic planetary friendships and enmities.
+- **Modern UI/UX**: Premium aesthetic featuring dark/light mode, glassmorphism details, smooth animations, and a responsive dashboard layout.
+- **AstroGuide Chat**: An interactive chat interface to ask common questions about gemstones and astrology.
 
 ---
 
-## 🏗️ Architecture
+## 🛠️ Technology Stack
 
-```
+### Backend
+- **Node.js** & **Express**: For server execution and RESTful API routing.
+- **TypeScript**: For static typing and robust code architecture.
+- **JWT (JSON Web Tokens)**: Secure token-based user authentication.
+- **bcryptjs**: Password encryption.
+- **In-Memory Storage**: Lightweight, fast data persistence tailored for demonstration purposes without requiring external databases.
+
+### Frontend
+- **React (Vite)**: High-performance single page application (SPA).
+- **TypeScript**: Ensuring type safety across components and API responses.
+- **Vanilla CSS (Custom Design System)**: Utility-free, scalable CSS leveraging custom properties for theme management.
+- **Lucide React**: Clean and consistent iconography.
+- **Axios**: Promise-based HTTP client with interceptors for seamless API communication.
+
+---
+
+## 📁 Project Structure
+
+```text
 hamara-pandit/
-├── backend/                  ← Node.js + Express + TypeScript (Port 5000)
+├── backend/
 │   ├── src/
-│   │   ├── data/gemstones.json    ← Navaratna data (single source of truth)
-│   │   ├── services/astrologyService.ts   ← Recommendation engine
-│   │   ├── middleware/auth.ts     ← JWT verification
-│   │   ├── routes/auth.ts         ← POST /api/auth/login, /register
-│   │   ├── routes/gemstones.ts    ← GET /api/gemstones, POST /recommend, /compatibility
-│   │   └── index.ts               ← Express entry point
-│   └── package.json
+│   │   ├── data/           # JSON data source for Navaratna gemstones
+│   │   ├── middleware/     # Authentication and authorization guards (auth.ts)
+│   │   ├── routes/         # Express API routing (auth.ts, gemstones.ts)
+│   │   ├── services/       # Core business logic (astrologyService.ts)
+│   │   └── index.ts        # Server startup and main entry point
+│   ├── package.json        # Backend dependencies & scripts
+│   └── tsconfig.json       # TypeScript configuration
 │
-└── src/ (frontend)          ← React + Vite + TypeScript (Port 5173)
-    ├── api/client.ts          ← Axios API client with JWT interceptor
-    ├── context/AuthContext.tsx← React auth state management
-    ├── pages/
-    │   ├── LandingPage.tsx    ← Hero, Features, How It Works, Footer
-    │   ├── AuthPage.tsx       ← Login / Signup (calls backend)
-    │   └── DashboardLayout.tsx← Sidebar + Topbar + Content
-    └── components/
-        ├── GemFinder.tsx      ← 3-step form → API call → Result cards
-        ├── GemCatalog.tsx     ← Searchable grid from API + detail modal
-        ├── GemCompatibility.tsx ← Compatibility checker (API call)
-        └── AstroChat.tsx      ← Conversational UI with knowledge base
+├── frontend/
+│   ├── src/
+│   │   ├── api/            # Axios client and API interceptors (client.ts)
+│   │   ├── components/     # Reusable UI components (GemFinder, GemCatalog, etc.)
+│   │   ├── context/        # React context wrappers for global state (AuthContext.tsx)
+│   │   ├── pages/          # View/Route containers (LandingPage, AuthPage, DashboardLayout)
+│   │   ├── App.tsx         # Main application component and routing logic
+│   │   ├── main.tsx        # App entry and React DOM hydration
+│   │   └── index.css       # Global design system and custom styling
+│   ├── index.html          # HTML entry point
+│   ├── package.json        # Frontend dependencies & scripts
+│   └── vite.config.ts      # Vite configuration
 ```
 
 ---
 
-## 🧠 Vedic Astrology & Numerology Logic
+## ⚙️ Recommendation Engine Logic
 
-The recommendation engine in `backend/src/services/astrologyService.ts`:
+The custom recommendation algorithm in `backend/src/services/astrologyService.ts` determines gemstones based on the following Vedic principles:
 
-1. **Life Path Number** (Numerology): Reduces the birth day to a single digit (1-9). Each number maps to a ruling planet (1→Sun, 2→Moon, 3→Jupiter, 4→Rahu, 5→Mercury, 6→Venus, 7→Ketu, 8→Saturn, 9→Mars).
+1. **Life Stone (Lagna Ratna)**: Calculated by reducing the user's birth day to a single-digit Life Path Number (1-9). Each number dictates a ruling planet and its corresponding primary gemstone.
+2. **Lucky Stone (Bhagya Ratna)**: Determined by approximating the user's Moon sign based on their birth month. The engine then cross-references this with planetary compatibility to ensure it does not conflict with the Life Stone.
+3. **Remedy Stone (Karya Ratna)**: Selected based on the user's specific life intention (e.g., Wealth, Career, Health, Love, Peace, Protection). The engine filters available stones and picks one that is highly compatible with the Life Stone.
 
-2. **Zodiac Approximation**: Uses birth month to approximate Moon sign (Jan→Capricorn, Feb→Aquarius, etc.).
+---
 
-3. **Compatibility Validation**: Cross-checks the secondary stone is not in the primary's "inimical" list using the Vedic planetary enmity rules (e.g., Sun and Saturn are enemies → Ruby and Blue Sapphire cannot be worn together).
+## 📡 API Endpoints
 
-4. **Remedy Stone**: Filters gemstones by life focus area (wealth, career, health, love, peace, protection) and picks one compatible with the primary.
+### Authentication
+- `POST /api/auth/register` - Registers a new user.
+- `POST /api/auth/login` - Authenticates user & returns JWT.
+
+### Gemstones
+- `GET /api/gemstones` - Lists all 9 Navaratna gemstones *(Requires Token)*.
+- `GET /api/gemstones/:id` - Fetch details for a specific gemstone *(Requires Token)*.
+- `POST /api/gemstones/recommend` - Calculates and returns personalized recommendations *(Requires Token)*.
+- `POST /api/gemstones/compatibility` - Checks compatibility between two gemstones *(Requires Token)*.
+- `GET /api/health` - Public endpoint to check API status.
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js ≥ 18
-- npm ≥ 9
-
-### 1. Install Dependencies
-
-```bash
-# Frontend (root folder)
-npm install
-
-# Backend
-cd backend
-npm install
-```
-
-### 2. Start Backend
-
-```bash
-cd backend
-npm run dev
-# → Runs on http://localhost:5000
-```
-
-### 3. Start Frontend
-
-```bash
-# From root folder
-npm run dev
-# → Runs on http://localhost:5173
-```
-
-### 4. Open in Browser
-
-Visit `http://localhost:5173`. Click **Get Started**, register an account, and explore!
+- [Node.js](https://nodejs.org/) (v18 or higher) installed on your machine.
 
 ---
 
-## 🔌 API Reference
+### Step 1: Backend Setup
 
-| Method | Endpoint | Auth | Description |
-|---|---|---|---|
-| `POST` | `/api/auth/register` | ❌ | Register new user |
-| `POST` | `/api/auth/login` | ❌ | Login, returns JWT |
-| `GET` | `/api/gemstones` | ✅ | All 9 gemstones |
-| `GET` | `/api/gemstones/:id` | ✅ | Single gemstone |
-| `POST` | `/api/gemstones/recommend` | ✅ | Birth details → recommendations |
-| `POST` | `/api/gemstones/compatibility` | ✅ | Two gem IDs → compatibility result |
-| `GET` | `/api/health` | ❌ | Health check |
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Frontend Framework | React 18 + Vite |
-| Language | TypeScript (both frontend & backend) |
-| Styling | Vanilla CSS with CSS Custom Properties (no bloat) |
-| HTTP Client | Axios with JWT interceptor |
-| Backend | Node.js + Express |
-| Auth | JWT (jsonwebtoken + bcryptjs) |
-| Icons | Lucide React |
-| Storage | In-memory (no DB needed for demo) |
+1. Open your terminal and navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the backend development server:
+   ```bash
+   npm run dev
+   ```
+   *The server will start on port 5000.*
 
 ---
 
-## 📐 Design Decisions & Assumptions
+### Step 2: Frontend Setup
 
-- **No Database**: User data is stored in-memory on the backend. For production, MongoDB or PostgreSQL would be used.
-- **Zodiac Approximation**: We use birth month for zodiac estimation since exact birth time and location-based calculations require ephemeris APIs (out of scope for this assignment).
-- **Sidebar Always Dark**: Following modern SaaS design patterns (Linear, Vercel), the sidebar stays dark regardless of the light/dark mode toggle, creating a premium two-tone contrast.
-- **Password Security**: Passwords are hashed with bcryptjs even for in-memory storage, demonstrating security best practices.
-
----
-
-## 🔮 Future Improvements
-
-- **Panchang API Integration**: Precise planetary degree calculations using birth time and GPS coordinates.
-- **MongoDB Persistence**: Store user profiles and history.
-- **Gemstone Shopping**: Integration with Hamara Pandit's gemstone catalog for direct purchase.
-- **PDF Report Generation**: Export personalized report as a styled PDF.
-- **Multi-Language**: Hindi and Sanskrit localization.
-- **Mobile App**: React Native version.
+1. Open a new terminal and navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the Vite development server:
+   ```bash
+   npm run dev
+   ```
+4. Open your browser and navigate to `http://localhost:5174` (or the port Vite outputs).
 
 ---
 
-*Built with 💎 by Deepanshu Singla 
-Assignment (June 2026)*
+## 👥 Using the Application
+
+Since AstroGem utilizes a lightweight in-memory storage system designed for seamless demonstration:
+- **No Database Setup Needed**: You do not need to configure MongoDB or any external databases.
+- **Registration**: Simply click "Get Started" and register a new account on the fly. 
+- **Demo Access**: The login page features a "Fill Demo Credentials" button to instantly populate form fields for quick testing.
+
+Enjoy discovering your sacred gemstone!
