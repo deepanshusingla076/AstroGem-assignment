@@ -4,13 +4,6 @@ This document outlines the usage of Artificial Intelligence (AI) assistants in t
 
 ---
 
-## 🛠️ AI Tools Utilized
-
-- **Primary Assistant**: Antigravity, an advanced agentic coding assistant powered by Gemini.
-- **Contextual Scope**: Project-wide scaffolding, API routing, in-memory data structures, state management logic, UI styling, and astrology-based recommendation algorithms.
-
----
-
 ## 🤝 Human-AI Collaboration Model
 
 The codebase represents a modern collaborative workflow. Tasks were distributed as follows:
@@ -41,10 +34,10 @@ Below is a breakdown of the estimated contribution distribution:
 | :--- | :---: | :---: |
 | **Backend API Routing & Controllers** | 90% | 10% |
 | **Astrology Recommendation Engine** | 95% | 5% |
-| **Data Structures & JSON Seeding** | 95% | 5% |
+| **Data Structures & JSON Seeding** | 85% | 15% |
 | **React Components & UI Layout** | 85% | 15% |
-| **React Context & API Services** | 90% | 10% |
-| **Documentation & Guides** | 100% | 0% |
+| **React Context & API Services** | 80% | 20% |
+| **Documentation & Guides** | 90% | 10% |
 
 ---
 
