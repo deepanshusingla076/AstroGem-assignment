@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Star, Shield, Zap, BookOpen } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface Props { onGetStarted: () => void; }
 
