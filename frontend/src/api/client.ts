@@ -1,10 +1,12 @@
 import axios from 'axios';
 
+// In production (Vercel), VITE_API_URL is injected as an environment variable.
+// During local dev, it falls back to localhost.
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const client = axios.create({ baseURL: API_BASE });
 
-// Attach JWT automatically
+// Automatically attach JWT from localStorage to every request
 client.interceptors.request.use(config => {
   const token = localStorage.getItem('astrogem_token');
   if (token) config.headers.Authorization = `Bearer ${token}`;

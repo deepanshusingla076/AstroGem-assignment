@@ -4,7 +4,7 @@ import { generateToken } from '../middleware/auth';
 
 const router = Router();
 
-// In-memory user store (no DB needed for assignment)
+// In-memory user store — sufficient for demo; replace with a DB for production
 interface User { id: string; name: string; email: string; passwordHash: string; }
 const users: User[] = [];
 
@@ -18,7 +18,7 @@ router.post('/register', async (req: Request, res: Response) => {
     if (users.find(u => u.email === email)) {
       return res.status(400).json({ success: false, message: 'Email already registered.' });
     }
-    const passwordHash = await bcrypt.hash(password, 10);
+    const passwordHash = await bcrypt.hash(password, 10); // bcrypt with 10 salt rounds
     const user: User = { id: Date.now().toString(), name, email, passwordHash };
     users.push(user);
     const token = generateToken({ id: user.id, email: user.email });

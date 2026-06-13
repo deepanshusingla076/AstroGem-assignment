@@ -4,22 +4,22 @@ import { gemstones, calculateRecommendation, checkCompatibility } from '../servi
 
 const router = Router();
 
-// All routes below are protected
+// All routes below require a valid JWT
 router.use(verifyToken as any);
 
-// GET /api/gemstones
+// GET /api/gemstones — return full Navaratna catalog
 router.get('/', (_req: AuthRequest, res: Response) => {
   return res.json({ success: true, data: gemstones });
 });
 
-// GET /api/gemstones/:id
+// GET /api/gemstones/:id — return a single gemstone by ID
 router.get('/:id', (req: AuthRequest, res: Response) => {
   const gem = gemstones.find(g => g.id === req.params.id);
   if (!gem) return res.status(404).json({ success: false, message: 'Gemstone not found.' });
   return res.json({ success: true, data: gem });
 });
 
-// POST /api/gemstones/recommend
+// POST /api/gemstones/recommend — run the Vedic recommendation engine
 router.post('/recommend', (req: AuthRequest, res: Response) => {
   const { name, day, month, year, focus } = req.body;
   if (!name || !day || !month || !year || !focus) {
@@ -29,7 +29,7 @@ router.post('/recommend', (req: AuthRequest, res: Response) => {
   return res.json({ success: true, data: result });
 });
 
-// POST /api/gemstones/compatibility
+// POST /api/gemstones/compatibility — check if two gemstones can be worn together
 router.post('/compatibility', (req: AuthRequest, res: Response) => {
   const { gem1Id, gem2Id } = req.body;
   if (!gem1Id || !gem2Id) {
