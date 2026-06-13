@@ -7,10 +7,15 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-// Allow all localhost ports (handles Vite port fallback 5173, 5174, etc.)
+// Allow all localhost ports and Vercel domains (handles local dev and deployed frontend)
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || /^http:\/\/localhost:\d+$/.test(origin)) {
+    if (
+      !origin || 
+      /^http:\/\/localhost:\d+$/.test(origin) || 
+      origin.endsWith('.vercel.app') ||
+      origin === 'https://astro-gem-assignment-z9ps.vercel.app'
+    ) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
@@ -34,8 +39,10 @@ app.use((_req, res) => {
   res.status(404).json({ success: false, message: 'Route not found.' });
 });
 
-app.listen(PORT, () => {
-  console.log(`✨ AstroGem API running at http://localhost:${PORT}`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`✨ AstroGem API running at http://localhost:${PORT}`);
+  });
+}
 
 export default app;
